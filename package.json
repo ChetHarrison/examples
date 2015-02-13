@@ -1,0 +1,23 @@
+{
+  "name": "examples",
+  "version": "0.0.0",
+  "description": "general js patterns from blog posts",
+  "main": "promises.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ChetHarrison/examples.git"
+  },
+  "keywords": [
+    "js",
+    "examples"
+  ],
+  "author": "Chet Harrison <chet.harrison@nimblechef.com> (http://nimblechef.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ChetHarrison/examples/issues"
+  },
+  "homepage": "https://github.com/ChetHarrison/examples"
+}
