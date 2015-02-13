@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/ChetHarrison/examples/issues"
   },
-  "homepage": "https://github.com/ChetHarrison/examples"
+  "homepage": "https://github.com/ChetHarrison/examples",
+  "dependencies": {
+    "q": "^1.1.2"
+  }
 }

@@ -1,5 +1,9 @@
 // Promises
 // http://javascriptplayground.com/blog/2015/02/promises/?utm_source=javascriptweekly&utm_medium=email
+'use strict';
+
+var Q = require('q'),
+    Promise = Q.Promise;
 
 var fetchData = function() {
     return new Promise(function(resolve, reject) {
@@ -38,14 +42,12 @@ var writeToCsv = function(data) {
     });
 };
 
-fetchData().then(function(data) {
-    return prepareDataForCsv(data);
-}).then(function(data) {
-    return writeToCsv(data);
-}).then(function() {
-    console.log('your csv has been saved');
-});
-
-fetchData().then(prepareDataForCsv).then(writeToCsv).then(function() {
+var confirmSuccess = function() {
   console.log('your csv has been saved');
-});
+};
+
+
+fetchData().then(prepareDataForCsv).then(writeToCsv).then(confirmSuccess);
+
+
+
