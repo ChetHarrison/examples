@@ -27,27 +27,73 @@ var fetchData = function() {
     });
 };
 
-var prepareDataForCsv = function(data) {
-    return new Promise(function(resolve, reject) {
-        // imagine this did something with the data
-        // nothing async here but alows us to handel errors in the promise chain
-        resolve(data);
+// changing functions that expect some data to instead take a promise
+// that will resolve to some data
+//
+var prepareDataForCsv = function(dataPromise) {
+    return dataPromise().then(function(data) {
+        return data;
     });
 };
 
 var writeToCsv = function(data) {
     return new Promise(function(resolve, reject) {
-        // write to CSV
         resolve();
     });
 };
 
 var confirmSuccess = function() {
-  console.log('your csv has been saved');
+    console.log('your csv has been saved');
+};
+
+var errorHandler = function(error) {
+    console.log('something went wrong', error);
 };
 
 
-fetchData().then(prepareDataForCsv).then(writeToCsv).then(confirmSuccess);
+// now chain up the async into a sync path
+prepareDataForCsv(fetchData).
+then(writeToCsv).
+then(confirmSuccess).
+catch(errorHandler);
 
 
+// Recursion in Promises
 
+var count = 0;
+
+var http = function() {
+    if (count === 0) {
+        count++;
+        return Promise.resolve({
+            more: true,
+            user: {
+                name: 'jack',
+                age: 22
+            }
+        });
+    } else {
+        return Promise.resolve({
+            more: false,
+            user: {
+                name: 'isaac',
+                age: 21
+            }
+        });
+    }
+};
+
+var fetchData = function() {
+    var goFetch = function(users) {
+        return http().then(function(data) {
+            users.push(data.user);
+            if (data.more) {
+                return goFetch(users);
+            } else {
+                return users;
+            }
+        });
+    };
+
+    return goFetch([]);
+};
